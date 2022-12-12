@@ -1,0 +1,104 @@
+<div class="container">
+    <!-- untuk heading content -->
+    <div style="padding-top: 5%;" class="text-center">
+        <h2>Contact</h2>
+        <br>
+    </div>
+
+    <!-- button add new contact -->
+    <div style="padding-left: 25%;" class="py-3">
+        <a href="/add" class="text-decoration-none btn btn-success m-auto">Add new contact</a>
+    </div>
+
+    <div>
+        <!-- membuat tabel -->
+        <table class="table table-striped w-50 text-center m-auto">
+            <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Mobile</th>
+                <th>Action</th>
+            </tr>
+            <% x = 1 %>
+
+            <!-- memanampilkan isi dari data.json -->
+            <% contacts.forEach(elm => { %>
+            <tr>
+                <td><%= x %> </td>
+                <td><%= elm.name %></td>
+                <td><%= elm.tlp %></td>
+                <td>
+                    <form action="/delete" method="post">
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-sm">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-4" id="staticBackdropLabel">Detail Contact</h1>
+                                        <button type="button" class="btn-close px-3" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body fs-6 fw-bold ">
+                                        <table class="text-start">
+                                            <tr>
+                                                <td class="px-2">
+                                                    Nama
+                                                </td>
+                                                <td class="px-2">:</td>
+                                                <td><%= elm.name %></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-2">
+                                                Email
+                                                </td>
+                                                <td class="px-2">:</td>
+                                                <td><%= elm.email %></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="px-2">
+                                                Mobile
+                                                </td>
+                                                <td class="px-2">:</td>
+                                                <td><%= elm.tlp %></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form action="/delete" method="post">
+                                            <a href="/edit/<%= elm.name %>" class="btn btn-success py-2 px-3">Edit</a>
+                                            <button type="submit" id="delete" class="border-0 btn btn-danger py-2 px-3"
+                                                onclick="if(confirm('Are you sure want to delete data <%= elm.name %> ?')){
+                                            return true;
+                                          }else{ 
+                                              return false;
+                                              }">Delete</button>
+                                            <input type="hidden" name="dlt" value="<%=elm.name%>">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="button" class="badge rounded-pill text-bg-primary border-0 py-2 px-3"
+                            data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            Detail
+                        </button>
+                        <a class="badge rounded-pill text-bg-success text-decoration-none py-2 px-3"
+                            href="/edit/<%= elm.name %> ">Edit</a>
+                        <button type="submit" id="delete" class="badge rounded-pill border-0 text-bg-danger py-2 px-3"
+                            onclick="if(confirm('Are you sure want to delete data <%= elm.name %> ?')){
+                              return true;
+                            }else{ 
+                                return false;
+                                }">Delete</button>
+                        <input type="hidden" name="dlt" value="<%=elm.name%>">
+                    </form>
+                </td>
+            </tr>
+            <% x+=1 %>
+            <% }) %>
+        </table>
+    </div>
+</div>

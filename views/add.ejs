@@ -1,0 +1,36 @@
+<div class="container">
+    <!-- untuk heading add -->
+    <div style="padding-top: 5%;"class="text-center">
+        <h3>Add new Contact</h3>
+    </div>
+
+    <!-- membuat logika apabila data salah format dan duplikat akan memunculkan tulisan -->
+    <% if ( typeof errors != 'undefined') { %>
+    <div style="margin-left: 35%; width: 30%; margin-top: 3%;" class="bg-danger text-white py-3 rounded-4">
+        <ul class="fs-5 fw-2">
+            <% errors.forEach(elm => { %>
+            <li><%= elm.msg %></li>
+            <% }) %>
+        </ul>
+    </div>
+    <% } %>
+
+    <!-- membuat form tambah contact -->
+    <form class="w-25 m-auto" style="padding-top:3%;" action="/added" method="post">
+        <div class="mb-3">
+            <label for="nama" class="form-label">Nama</label>
+            <input type="text" name="nama" placeholder="John Doe" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="mobile" class="form-label">Mobile Phone</label>
+            <input type="text" name="mobile" placeholder="0812-xxxx-xxxx" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="text" name="email" placeholder="example@gmail.com" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-success">
+            Add Data
+        </button>
+    </form>
+</div>
