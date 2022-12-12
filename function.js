@@ -9,13 +9,6 @@ if (!fs.existsSync(dirPath)) {
   fs.mkdirSync(dirPath);
 }
 
-//membuat fungsi loadData
-const loadContact = () => {
-  // membaca file contacts.json
-  const file = fs.readFileSync("./data/contacts.json", "utf8");
-  const contacts = JSON.parse(file);
-  return contacts;
-};
 
 //membuat logika apakah file constacts.json sudah dibuat atau belum
 const dataPath = "./data/contacts.json";
@@ -23,6 +16,14 @@ if (!fs.existsSync(dataPath)) {
   //membuat file
   fs.writeFileSync(dataPath, "[]", "utf-8");
 }
+
+//membuat fungsi loadData
+const loadContact = () => {
+  // membaca file contacts.json
+  const file = fs.readFileSync("./data/contacts.json", "utf8");
+  const contacts = JSON.parse(file);
+  return contacts;
+};
 
 //membuat fungsi menampilkan semua data
 const show = () => {
@@ -70,10 +71,11 @@ const deleted = (name) => {
   }
 };
 
+// membuat fungsi untuk update data
 const update = (name, email, tlp, update) => {
   //memanggil function loadData dan menyimpannya di variable contacts
   const contacts = loadContact();
-  //mencari index data dengan mencocokan data json dengan masukan
+  //mencari data dengan mencocokan data json dengan masukan
   const updt = contacts.find((data) => {
     return data.name == update;
   });

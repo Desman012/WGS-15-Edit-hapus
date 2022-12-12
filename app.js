@@ -62,11 +62,15 @@ app.get("/add", (req, res) => {
   res.render("add", { title: "Halaman add" });
 });
 
+// mendapatkan data dari form add data
 app.post(
   "/added",
   [
+    // membuat custom validator untuk duplikat data
     body("nama").custom((value) => {
+      // memanggil fungsi detail untuk mencari data yang sama kemudian dimasukan ke variable dupe
       const dupe = func.detail(value);
+      // jika terjadi duplikasi data maka akan mengeluarkan pesan error
       if (dupe) {
         throw new Error("Data already exists");
       }
@@ -100,31 +104,42 @@ app.post(
   }
 );
 
+// menangkap data dari form delete
 app.post("/delete", (req, res) => {
+  // memanggil fungsi delete untuk menghapus data
   func.deleted(req.body.dlt);
+  // mengarahkan ke laman contact
   res.redirect("contact");
 });
 
+// menerima request
 app.get("/edit/:nama", (req, res) => {
   // memanggil fungsi detail dan memasukkan ke variable getDetail
   const getDetail = func.detail(req.params.nama);
-  console.log("test", getDetail);
+  // menangkap parameter nama dan memasukan ke variable params
   const params = req.params.nama;
 
+  // jika data tidak ada di variable getDetail
   if(!getDetail){
+    // mengarahkan ke laman error
     res.redirect('/error')
   }
-
   // menampilkan file detail, dan memasuk variable getDetail dan title
   res.render("edit", { getDetail, title: "Halaman Edit", params });
 });
 
+// menangkap data dari form edit
 app.post(
   "/update/:nama",
   [
+    // membuat custom validator untuk duplikat
     body("nama").custom((value, {req}) => {
+      // memanggil fungsi detail untuk mengecek data ada atau belum
       const dupe = func.detail(value);
+
+      // jika data terdapat duplikasi dan tidak sama dengan data yang lama
       if (value == dupe && value != req.params.nama) {
+        // menampilkan error
         throw new Error("Data already exists");
       }
       return true;
@@ -140,13 +155,14 @@ app.post(
     const errors = validationResult(req);
     const params = req.params.nama;
 
+    // menangkap data yang diinput dan dimasukan ke variable getData
     getDetail = {
       name: req.body.nama,
       email: req.body.email,
       tlp: req.body.mobile,
     };
-    // jika data salah format
 
+    // jika data salah format
     if (!errors.isEmpty()) {
       // memanggil file add dan memasukan variable error
       res.render("edit", { errors: errors.array(), title: "halaman edit", getDetail, params });

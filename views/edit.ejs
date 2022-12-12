@@ -1,20 +1,22 @@
 <div class="container">
-    <!-- untuk heading add -->
+    <!-- untuk heading edit-->
     <div style="padding-top: 5%;" class="text-center">
         <h3>Edit Content</h3>
     </div>
 
+    <!-- jika terdapat error -->
     <% if ( typeof errors != 'undefined') { %>
         <div style="margin-left: 35%; width: 30%; margin-top: 3%;" class="bg-danger text-white py-3 rounded-4">
             <ul class="fs-5 fw-2">
                 <% errors.forEach(elm => { %>
+                    <!-- memunculkan  pesan error -->
                 <li><%= elm.msg %></li>
                 <% }) %>
             </ul>
         </div>
         <% } %>
 
-    <!-- membuat form tambah contact -->
+    <!-- membuat form edit contact -->
     <form class="w-25 m-auto" style="padding-top:3%;" action="/update/<%=params %>" method="post">
         <div class="mb-3">
             <label for="nama" class="form-label">Nama</label>
@@ -28,9 +30,12 @@
             <label for="email" class="form-label">Email</label>
             <input type="text" name="email" value="<%= getDetail.email%>" class="form-control" required>
         </div>
+        <!-- membuat tombol update -->
         <button type="submit" class="btn btn-success">
             Update
         </button>
+
+        <!-- membuat tombol back -->
         <a href="/contact" class="btn btn-primary">Back</a>
     </form>
 </div>
