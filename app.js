@@ -138,7 +138,7 @@ app.post(
       const dupe = func.detail(value);
 
       // jika data terdapat duplikasi dan tidak sama dengan data yang lama
-      if (value == dupe && value != req.params.nama) {
+      if (value != req.params.nama && dupe) {
         // menampilkan error
         throw new Error("Data already exists");
       }

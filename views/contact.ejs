@@ -28,70 +28,68 @@
                 <td><%= elm.name %></td>
                 <td><%= elm.tlp %></td>
                 <td>
-                    <form action="/delete" method="post">
+                    <!-- modal untuk page detail -->
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <!-- menjadikan modal diposisi tengah -->
+                        <div class="modal-dialog modal-dialog-centered modal-sm">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <!-- head modal -->
+                                    <h1 class="modal-title fs-4" id="staticBackdropLabel">Detail Contact</h1>
+                                    <!-- tombol close -->
+                                    <button type="button" class="btn-close px-3" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
 
-                        <!-- modal untuk page detail -->
-                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-                            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                            <!-- menjadikan modal diposisi tengah -->
-                            <div class="modal-dialog modal-dialog-centered modal-sm">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <!-- head modal -->
-                                        <h1 class="modal-title fs-4" id="staticBackdropLabel">Detail Contact</h1>
-                                        <!-- tombol close -->
-                                        <button type="button" class="btn-close px-3" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
+                                <!-- isi modal -->
+                                <div class="modal-body fs-6 fw-bold ">
+                                    <table class="text-start">
+                                        <tr>
+                                            <td class="px-2">
+                                                Nama
+                                            </td>
+                                            <td class="px-2">:</td>
+                                            <td><%= elm.name %></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-2">
+                                                Email
+                                            </td>
+                                            <td class="px-2">:</td>
+                                            <td><%= elm.email %></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-2">
+                                                Mobile
+                                            </td>
+                                            <td class="px-2">:</td>
+                                            <td><%= elm.tlp %></td>
+                                        </tr>
+                                    </table>
+                                </div>
 
-                                    <!-- isi modal -->
-                                    <div class="modal-body fs-6 fw-bold ">
-                                        <table class="text-start">
-                                            <tr>
-                                                <td class="px-2">
-                                                    Nama
-                                                </td>
-                                                <td class="px-2">:</td>
-                                                <td><%= elm.name %></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="px-2">
-                                                    Email
-                                                </td>
-                                                <td class="px-2">:</td>
-                                                <td><%= elm.email %></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="px-2">
-                                                    Mobile
-                                                </td>
-                                                <td class="px-2">:</td>
-                                                <td><%= elm.tlp %></td>
-                                            </tr>
-                                        </table>
-                                    </div>
+                                <div class="modal-footer">
+                                    <form action="/delete" method="post">
+                                        <!-- membuat tombol edit -->
+                                        <a href="/edit/<%= elm.name %>" class="btn btn-success py-2 px-3">Edit</a>
 
-                                    <div class="modal-footer">
-                                        <form action="/delete" method="post">
-                                            <!-- membuat tombol edit -->
-                                            <a href="/edit/<%= elm.name %>" class="btn btn-success py-2 px-3">Edit</a>
-
-                                            <!-- membuat tombol delete -->
-                                            <button type="submit" id="delete" class="border-0 btn btn-danger py-2 px-3"
-                                                onclick="if(confirm('Are you sure want to delete data <%= elm.name %> ?')){
+                                        <!-- membuat tombol delete -->
+                                        <button type="submit" class="border-0 btn btn-danger py-2 px-3" onclick="if(confirm('Are you sure want to delete data <%= elm.name %> ?')){
                                             return true;
                                           }else{ 
                                               return false;
                                               }">Delete</button>
-                                              <!-- apabila alert dipencet ok, maka data akan asuk ke input ini -->
-                                            <input type="hidden" name="dlt" value="<%=elm.name%>">
+                                        <!-- apabila alert dipencet ok, maka data akan asuk ke input ini -->
+                                        <input type="hidden" name="dlt" value="<%=elm.name%>">
 
-                                        </form>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
+                    <form action="/delete" method="post">
                         <!-- membuat tombol detail -->
                         <button type="button" class="badge rounded-pill text-bg-primary border-0 py-2 px-3"
                             data-bs-toggle="modal" data-bs-target="#staticBackdrop">
@@ -102,13 +100,13 @@
                         <a class="badge rounded-pill text-bg-success text-decoration-none py-2 px-3"
                             href="/edit/<%= elm.name %> ">Edit</a>
 
-                            <!-- membuat tombol delete -->
-                        <button type="submit" id="delete" class="badge rounded-pill border-0 text-bg-danger py-2 px-3"
-                            onclick="if(confirm('Are you sure want to delete data <%= elm.name %> ?')){
-                              return true;
-                            }else{ 
-                                return false;
-                                }">Delete</button>
+                        <!-- membuat tombol deletete -->
+                        <button type="submit" id="delete" class="badge rounded-pill text-bg-danger border-0 text-decoration-none py-2 px-3" onclick="if(confirm('Are you sure want to delete data <%= elm.name %> ?')){
+                        return true;
+                      }else{ 
+                          return false;
+                          }">Delete</button>
+                        <!-- apabila alert dipencet ok, maka data akan asuk ke input ini -->
                         <input type="hidden" name="dlt" value="<%=elm.name%>">
                     </form>
                 </td>
